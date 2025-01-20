@@ -1,0 +1,28 @@
+{
+  "name": "fun-modules",
+  "version": "1.0.3",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "create:module": "node scripts/CreateModule.js",
+    "create:controller": "node scripts/CreateController.js",
+    "create:model": "node scripts/CreateModel.js",
+    "create:router": "node scripts/CreateRouter.js",
+    "create:migration": "node scripts/CreateMigration.js"
+  },
+  "keywords": [
+    "fun",
+    "modules",
+    "api",
+    "express"
+  ],
+  "author": {
+    "name": "joregesosa",
+    "email": "joregesosa@gamil.com"
+  },
+  "license": "ISC",
+  "description": "A simple way to create modules for your express api",
+  "bin": {
+    "fm-api": "./cli.js"
+  }
+}
