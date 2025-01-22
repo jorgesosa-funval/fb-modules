@@ -72,5 +72,6 @@ const content = fs.existsSync(`src/modules/${modelName}/Controller.js`) ? router
 
 
 fc(`src/modules/${modelName}`, "Router.js", content);
+console.log( `Router created successfully at src/modules/${modelName}/Router.js`);
 
 registerRoute(`src/routes/routes.js`, "routes", modelName);
