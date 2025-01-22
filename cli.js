@@ -6,13 +6,13 @@ import { fileURLToPath } from "url";
 
 const [, , command, ...args] = process.argv;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const scriptsPath = path.resolve(__dirname, "../fun-modules/scripts");
+const scriptsPath = path.resolve(__dirname, "../fb-modules/scripts");
 
 const commands = {
-  "create:module": "CreateModule.js",
-  "create:controller": "CreateController.js",
-  "create:model": "CreateModel.js",
-  "create:router": "CreateRouter.js",
+  "make:module": "CreateModule.js",
+  "make:controller": "CreateController.js",
+  "make:model": "CreateModel.js",
+  "make:router": "CreateRouter.js",
 };
 
 try {
