@@ -1,14 +1,14 @@
 {
-  "name": "fun-modules",
-  "version": "1.0.3",
+  "name": "fb-modules",
+  "version": "1.0.1",
+  "description": "A simple way to create modules for your express api",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "create:module": "node scripts/CreateModule.js",
-    "create:controller": "node scripts/CreateController.js",
-    "create:model": "node scripts/CreateModel.js",
-    "create:router": "node scripts/CreateRouter.js",
-    "create:migration": "node scripts/CreateMigration.js"
+    "make:module": "node scripts/CreateModule.js",
+    "make:controller": "node scripts/CreateController.js",
+    "make:model": "node scripts/CreateModel.js",
+    "make:router": "node scripts/CreateRouter.js"
   },
   "keywords": [
     "fun",
@@ -21,8 +21,7 @@
     "email": "joregesosa@gamil.com"
   },
   "license": "ISC",
-  "description": "A simple way to create modules for your express api",
   "bin": {
-    "fm-api": "./cli.js"
+    "fb": "./cli.js"
   }
 }
