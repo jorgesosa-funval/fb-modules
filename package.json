@@ -4,12 +4,7 @@
   "description": "A simple way to create modules for your express api",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "make:module": "node scripts/CreateModule.js",
-    "make:controller": "node scripts/CreateController.js",
-    "make:model": "node scripts/CreateModel.js",
-    "make:router": "node scripts/CreateRouter.js"
-  },
+  
   "keywords": [
     "fun",
     "modules",
