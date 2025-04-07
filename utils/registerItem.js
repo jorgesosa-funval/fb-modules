@@ -11,6 +11,7 @@ import fc from "./fc.js";
 export function registerItem(filePath, arrayName, itemName) {
   const fileName = filePath.split("/").pop();
   const path = filePath.split("/").slice(0, -1).join("/");
+  const itemConfig = arrayName === "routes" ? JSON.stringify({ name: itemName, is_protected: true }) : '"' + itemName + '"';
 
   if (!fs.existsSync(filePath)) {
     fc(path, fileName, `export const ${arrayName} = [\n];`);
@@ -18,7 +19,7 @@ export function registerItem(filePath, arrayName, itemName) {
 
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const fileLines = fileContent.split("\n");
- 
+
   const itemIndex = fileLines.findIndex((line) =>
     line.includes(`"${itemName}"`)
   );
@@ -42,11 +43,11 @@ export function registerItem(filePath, arrayName, itemName) {
     );
     if (singleLineArrayIndex !== -1) {
       const line = fileLines[singleLineArrayIndex];
-      const newLine = line.replace("];", ` "${itemName}", ];`);
+      const newLine = line.replace("];", ` ${itemConfig}, ];`);
       fileLines[singleLineArrayIndex] = newLine;
     }
   } else {
-    fileLines.splice(endOfArrayIndex, 0, ` "${itemName}",`);
+    fileLines.splice(endOfArrayIndex, 0, ` ${itemConfig},`);
   }
 
   fs.writeFileSync(filePath, fileLines.join("\n"));
