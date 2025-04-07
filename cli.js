@@ -13,9 +13,7 @@ const commands = {
   "make:controller": "CreateController.js",
   "make:model": "CreateModel.js",
   "make:router": "CreateRouter.js",
-  "db:migrate": "../../../src/database/migrations/index.js",
-  "db:truncate": "../../../src/database/migrations/back.js",
-  "db:refresh": "../../../src/database/migrations/refresh.js",
+  "db:migrate": "RunMigration.js",
 };
 
 try {
@@ -32,4 +30,5 @@ try {
   console.error(`Error executing command: ${command}`);
   console.error(error.message);
   process.exit(1);
-}
+};
+
