@@ -1,7 +1,8 @@
 import cf from "../utils/fc.js";
 import getNames from "../utils/getNames.js";
+import registerItem from "../utils/registerItem.js";
 
-const [moduleName, modelName] = getNames();
+const [ moduleName, modelName ] = getNames();
 
 const modelContent = `import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
@@ -30,3 +31,5 @@ ${modelName}.init(
 cf(`src/modules/${modelName}`, "Model.js", modelContent);
 
 console.log(`Model created successfully at src/modules/${modelName}/Model.js`);
+
+registerItem(`src/database/migrations/migrations.js`, "migrations", modelName);
