@@ -3,7 +3,7 @@ import cf from "../utils/fc.js";
 import getNames from "../utils/getNames.js";
 
 const [moduleName, modelName] = getNames();
-
+const instanceName = moduleName.endsWith("s") ? moduleName.slice(0, -1) : moduleName;
 const controllerContent = `import {${modelName}}from "./Model.js"
     
  /**
@@ -30,11 +30,11 @@ const controllerContent = `import {${modelName}}from "./Model.js"
   */
  export const show = async (req, res, next) => {
    try {
-     const ${moduleName} = await ${modelName}.findByPk(req.params.id);
-     if (!user) {
-       throw { status: 404, message: "User not found" };
+     const ${instanceName} = await ${modelName}.findByPk(req.params.id);
+     if (!${instanceName}) {
+       throw { status: 404, message: "${instanceName} not found" };
      }
-     res.status(200).json(${moduleName});
+     res.status(200).json(${instanceName});
    } catch (error) {
      next(error);
    }
@@ -49,10 +49,13 @@ const controllerContent = `import {${modelName}}from "./Model.js"
   */
  export const store = async (req, res, next) => {
    try {
-     const ${moduleName} = await ${modelName}.create(req.body, {
+     const ${instanceName} = await ${modelName}.create(req.body, {
        validate: true,
      });
-     res.status(201).json(${moduleName});
+     res.status(201).json({
+        status: "ok",
+        message: "${modelName} created successfully",
+     });
    } catch (error) {
      next(error);
    }
@@ -67,12 +70,16 @@ const controllerContent = `import {${modelName}}from "./Model.js"
   */
  export const update = async (req, res, next) => {
    try {
-     const ${moduleName} = await User.findByPk(req.params.id);
-     if (!${moduleName}) {
+     const ${instanceName} = await ${modelName}findByPk(req.params.id);
+     if (!${instanceName}) {
        throw { status: 404, message: "${modelName} not found" };
      }
-     await ${modelName}.update(req.body);
-     res.status(200).json(${moduleName});
+     await ${instanceName}.update(req.body);
+     await ${instanceName}.save();
+      res.status(200).json({
+        status: "ok",
+        message: "${modelName} updated successfully"
+      });
    } catch (error) {
      next(error);
    }
@@ -88,12 +95,15 @@ const controllerContent = `import {${modelName}}from "./Model.js"
  
  export const destroy = async (req, res, next) => {
    try {
-     const ${moduleName} = await ${modelName}.findByPk(req.params.id);
-     if (!${moduleName}) {
+     const ${instanceName} = await ${modelName}.findByPk(req.params.id);
+     if (!${instanceName}) {
        throw { status: 404, message: "${modelName} not found" };
      }
-     await ${modelName}.destroy();
-     res.status(204).json();
+      await ${instanceName}.destroy();
+      res.status(204).json({
+        status: "ok",
+        message: "${modelName} deleted successfully" 
+      });
    } catch (error) {
      next(error);
    }
@@ -188,4 +198,4 @@ const content = fs.existsSync(`src/modules/${modelName}/Model.js`) ? controllerC
 
 cf(`src/modules/${modelName}`, "Controller.js", content);
 
-console.log( `Controller created successfully at src/modules/${modelName}/Controller.js`);
+console.log(`Controller created successfully at src/modules/${modelName}/Controller.js`);
