@@ -6,7 +6,9 @@ import { fileURLToPath } from "url";
 
 const [, , command, ...args] = process.argv;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const scriptsPath = path.resolve(__dirname, "../fb-modules/scripts");
+
+const resolveScriptPath = (scriptName) => 
+  path.resolve(__dirname, "../fb-modules/scripts", scriptName);
 
 const commands = {
   "make:module": "CreateModule.js",
@@ -18,8 +20,12 @@ const commands = {
 
 try {
   if (commands[command]) {
+    const scriptPath = resolveScriptPath(commands[command]);
+    const escapedScriptPath = `"${scriptPath}"`;
+    const escapedArgs = args.map(arg => `"${arg}"`).join(" ");
+
     execSync(
-      `node ${path.join(scriptsPath, commands[command])} ${args.join(" ")}`,
+      `node ${escapedScriptPath} ${escapedArgs}`,
       { stdio: "inherit" }
     );
   } else {
@@ -30,5 +36,4 @@ try {
   console.error(`Error executing command: ${command}`);
   console.error(error.message);
   process.exit(1);
-};
-
+}
