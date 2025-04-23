@@ -106,7 +106,7 @@ export async function validate() {
     }
 
     await run(migration, selectedMethod);
-    
+
   } catch (error) {
     console.error("❌ An unexpected error occurred during validation:", error.message);
   }
