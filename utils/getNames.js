@@ -6,7 +6,9 @@ export function getNames() {
     process.exit(1);
   }
 
-  const modelName = moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
+  const modelName = moduleName.includes('_')
+    ? moduleName.split('_').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('_')
+    : moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
 
   return [moduleName, modelName];
 }
