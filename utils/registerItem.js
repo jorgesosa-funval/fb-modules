@@ -43,11 +43,11 @@ export function registerItem(filePath, arrayName, itemName) {
     );
     if (singleLineArrayIndex !== -1) {
       const line = fileLines[singleLineArrayIndex];
-      const newLine = line.replace("];", ` ${itemConfig}, ];`);
+      const newLine = line.replace("];", `  ${itemConfig}, ];`);
       fileLines[singleLineArrayIndex] = newLine;
     }
   } else {
-    fileLines.splice(endOfArrayIndex, 0, ` ${itemConfig},`);
+    fileLines.splice(endOfArrayIndex, 0, `  ${itemConfig},`);
   }
 
   fs.writeFileSync(filePath, fileLines.join("\n"));
