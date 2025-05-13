@@ -14,6 +14,9 @@ const controllerContent = `import {${modelName}}from "./Model.js"
   */
  export const index = async (req, res, next) => {
    try {
+    //#swagger.tags = ['${modelName}']
+    //#swagger.description = 'Obtiene todos los ${moduleName} activos.'
+
      const ${moduleName} = await ${modelName}.findAll();
      res.status(200).json(${moduleName});
    } catch (error) {
@@ -30,6 +33,9 @@ const controllerContent = `import {${modelName}}from "./Model.js"
   */
  export const show = async (req, res, next) => {
    try {
+    //#swagger.tags = ['${modelName}']
+    //#swagger.description = 'Obtiene un ${instanceName} por id.'
+
      const ${instanceName} = await ${modelName}.findByPk(req.params.id);
      if (!${instanceName}) {
        throw { status: 404, message: "${instanceName} not found" };
@@ -49,6 +55,9 @@ const controllerContent = `import {${modelName}}from "./Model.js"
   */
  export const store = async (req, res, next) => {
    try {
+    //#swagger.tags = ['${modelName}']
+    //#swagger.description = 'Crea un nuevo ${instanceName}.'
+
      const ${instanceName} = await ${modelName}.create(req.body, {
        validate: true,
      });
@@ -70,6 +79,9 @@ const controllerContent = `import {${modelName}}from "./Model.js"
   */
  export const update = async (req, res, next) => {
    try {
+    //#swagger.tags = ['${modelName}']
+    //#swagger.description = 'Actualiza un ${instanceName} por id.'
+
      const ${instanceName} = await ${modelName}findByPk(req.params.id);
      if (!${instanceName}) {
        throw { status: 404, message: "${modelName} not found" };
@@ -95,6 +107,9 @@ const controllerContent = `import {${modelName}}from "./Model.js"
  
  export const destroy = async (req, res, next) => {
    try {
+    //#swagger.tags = ['${modelName}']
+    //#swagger.description = 'Elimina un ${instanceName} por id.'
+
      const ${instanceName} = await ${modelName}.findByPk(req.params.id);
      if (!${instanceName}) {
        throw { status: 404, message: "${modelName} not found" };
@@ -122,6 +137,9 @@ const emptyControllerContent = `
   */
  export const index = async (req, res, next) => {
    try {
+      //#swagger.tags = ['${modelName}']
+      //#swagger.description = 'Obtiene todos los ${modelName} activos.'
+
      res.status(200).json({data: "All ${modelName}s"});
    } catch (error) {
      next(error);
@@ -137,6 +155,9 @@ const emptyControllerContent = `
   */
  export const show = async (req, res, next) => {
    try {
+      //#swagger.tags = ['${modelName}']
+      //#swagger.description = 'Obtiene un ${instanceName} por id.'
+
      res.status(200).json({data: "Single ${modelName}"});
    } catch (error) {
      next(error);
@@ -152,6 +173,9 @@ const emptyControllerContent = `
   */
  export const store = async (req, res, next) => {
    try {
+      //#swagger.tags = ['${modelName}']
+      //#swagger.description = 'Crea un nuevo ${instanceName}.'
+
      res.status(201).json({data: "Create new ${modelName}"});
    } catch (error) {
      next(error);
@@ -167,6 +191,9 @@ const emptyControllerContent = `
   */
  export const update = async (req, res, next) => {
    try {
+      //#swagger.tags = ['${modelName}']
+      //#swagger.description = 'Actualiza un ${instanceName} por id.'
+
      res.status(200).json({data: "Update ${modelName}"});
    } catch (error) {
      next(error);
@@ -183,6 +210,9 @@ const emptyControllerContent = `
  
  export const destroy = async (req, res, next) => {
    try {
+      //#swagger.tags = ['${modelName}']
+      //#swagger.description = 'Elimina un ${instanceName} por id.'
+
      res.status(204).json({data: "Delete ${modelName}"});
    } catch (error) {
      next(error);

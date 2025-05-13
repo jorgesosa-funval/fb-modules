@@ -10,11 +10,11 @@ import { index, show, store, update, destroy } from "./Controller.js";
 
 export const ${moduleName}Router = Router();
 
-${moduleName}Router.get("/", index);
-${moduleName}Router.get("/:id", show);
-${moduleName}Router.post("/", store);
-${moduleName}Router.put("/:id", update);
-${moduleName}Router.delete("/:id", destroy); 
+${moduleName}Router.get("/${moduleName}", index);
+${moduleName}Router.get("/${moduleName}/:id", show);
+${moduleName}Router.post("/${moduleName}", store);
+${moduleName}Router.put("/${moduleName}/:id", update);
+${moduleName}Router.delete("/${moduleName}/:id", destroy); 
 `;
 
 
@@ -22,44 +22,44 @@ const emptyRouterContent = `import { Router } from "express";
 
 export const ${moduleName}Router = Router();
 
-${moduleName}Router.get("/", (req, res, next) => {
-   try {
-     res.status(200).json({data: "All ${modelName}s"});
-   } catch (error) {
-     next(error);
-   }
+${moduleName}Router.get("/${moduleName}", (req, res, next) => {
+  try {
+    res.status(200).json({data: "All ${modelName}s"});
+  } catch (error) {
+    next(error);
+  }
  });
 
-${moduleName}Router.get("/:id", (req, res, next) => {
-   try {   
-     res.status(200).json({data: "${modelName}"});
-   } catch (error) {
-     next(error);
-   }
+${moduleName}Router.get("/${moduleName}/:id", (req, res, next) => {
+  try {   
+    res.status(200).json({data: "${modelName}"});
+  } catch (error) {
+    next(error);
+  }
  });
 
-${moduleName}Router.post("/", (req, res, next) => {
-   try {
-     res.status(201).json({data: "New ${modelName} created"});
-   } catch (error) {
-     next(error);
-   }
+${moduleName}Router.post("/${moduleName}", (req, res, next) => {
+  try {
+    res.status(201).json({data: "New ${modelName} created"});
+  } catch (error) {
+    next(error);
+  }
  });
 
-${moduleName}Router.put("/:id", (req, res, next) => {
-   try {
-     res.status(200).json({data: "${modelName} updated"});
-   } catch (error) {
-     next(error);
-   }
+${moduleName}Router.put("/${moduleName}/:id", (req, res, next) => {
+  try {
+    res.status(200).json({data: "${modelName} updated"});
+  } catch (error) {
+    next(error);
+  }
  });
 
-${moduleName}Router.delete("/:id", (req, res, next) => {
-   try {
-     res.status(204).json();
-   } catch (error) {
-     next(error);
-   }
+${moduleName}Router.delete("/${moduleName}/:id", (req, res, next) => {
+  try {
+    res.status(204).json();
+  } catch (error) {
+    next(error);
+  }
  });
 
 export default ${moduleName}Router;
