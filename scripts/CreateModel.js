@@ -29,25 +29,15 @@ ${modelName}.init(
             primaryKey: true,
         },
 
-        // add your columns here ✍️
-
-        created_at: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-            allowNull: false, 
-        },
-
-        updated_at: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.literal("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"), 
-            allowNull: false, 
-        },
+        // add your columns here ✍️ 
 
     },
     {
         sequelize,
         modelName: "${moduleName}",
-        timestamps: false, 
+        timestamps: true, 
+        createdAt: "created_at",
+        updatedAt: "updated_at",
     }
 );
 `;

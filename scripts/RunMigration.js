@@ -22,9 +22,30 @@ export const runMigrations = async (migration) => {
     const module = await import(moduleURL);
     const model = module[migration];
     await model.sync({ force: true });
+
+    // Check if the column 'created_at' exists before altering it
+    const [results] = await model.sequelize.query(
+      `SHOW COLUMNS FROM ${model.getTableName()} LIKE 'created_at'`
+    );
+
+    if (results.length > 0) {
+      // Alter column created_at to have CURRENT_TIMESTAMP as default
+      await model.sequelize.query(
+        `ALTER TABLE ${model.getTableName()} MODIFY created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP`
+      );
+
+      // Alter column updated_at to have CURRENT_TIMESTAMP as default
+      await model.sequelize.query(
+        `ALTER TABLE ${model.getTableName()} MODIFY updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`
+      );
+    }
+
     console.log(`✅ The table for the ${migration} model was just created!`);
   } catch (error) {
-    console.error(`❌ Unable to synchronize the models for ${migration}:`, error.message);
+    console.error(
+      `❌ Unable to synchronize the models for ${migration}:`,
+      error.message
+    );
   }
 };
 
@@ -49,7 +70,10 @@ export const downMigrations = async (migration) => {
 
     console.log(`✅ The table for the ${migration} model was just deleted!`);
   } catch (error) {
-    console.error(`❌ Unable to drop the models for ${migration}:`, error.message);
+    console.error(
+      `❌ Unable to drop the models for ${migration}:`,
+      error.message
+    );
   }
 };
 
@@ -57,7 +81,7 @@ export const downMigrations = async (migration) => {
  * Executes database migration scripts based on the specified method.
  *
  * @param {string} migration - The name or path of the migration to be executed.
- * @param {string} method - The migration method to execute. 
+ * @param {string} method - The migration method to execute.
  */
 export async function run(migration, method) {
   try {
@@ -73,10 +97,15 @@ export async function run(migration, method) {
         await runMigrations(migration);
         break;
       default:
-        console.error("❌ Invalid method. Please use one of the following: --up, --down, --refresh");
+        console.error(
+          "❌ Invalid method. Please use one of the following: --up, --down, --refresh"
+        );
     }
   } catch (error) {
-    console.error(`❌ An error occurred while running the migration for ${migration}:`, error.message);
+    console.error(
+      `❌ An error occurred while running the migration for ${migration}:`,
+      error.message
+    );
   }
 }
 
@@ -88,12 +117,15 @@ export async function validate() {
     let selectedMethod = method || "--up";
 
     if (method && !methods.includes(method)) {
-      console.error("❌ Invalid method. Please provide one of the following: --up, --down, --refresh");
+      console.error(
+        "❌ Invalid method. Please provide one of the following: --up, --down, --refresh"
+      );
       return;
     }
 
     if (!migration || migration.includes("--")) {
-      const array = selectedMethod === "--up" ? migrations : migrations.reverse();
+      const array =
+        selectedMethod === "--up" ? migrations : migrations.reverse();
       for (const migration of array) {
         await run(migration, selectedMethod);
       }
@@ -101,14 +133,18 @@ export async function validate() {
     }
 
     if (!migrations.includes(migration)) {
-      console.error("❌ Invalid migration name. Please provide a valid migration.");
+      console.error(
+        "❌ Invalid migration name. Please provide a valid migration."
+      );
       return;
     }
 
     await run(migration, selectedMethod);
-
   } catch (error) {
-    console.error("❌ An unexpected error occurred during validation:", error.message);
+    console.error(
+      "❌ An unexpected error occurred during validation:",
+      error.message
+    );
   }
 }
 
