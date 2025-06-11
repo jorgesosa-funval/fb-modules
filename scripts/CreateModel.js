@@ -9,22 +9,21 @@ import { sequelize } from "../../database/sequelize.js";
 
 export class ${modelName} extends Model {}
 
+/**
+     * Configuración del campo id: 🚀
+     *   - **type**: 'DataTypes.BIGINT.UNSIGNED' 🛠️
+     *   - Utilizado para almacenar números enteros grandes. 📊
+     *   - 'UNSIGNED' permite solo valores positivos. ➕
+     *   - Nota: Usa el mismo tipo de dato para llaves foráneas (ej: 'id BIGINT UNSIGNED'). 🔑
+     *   - **autoIncrement**: true 🔄
+     *   - Incrementa automáticamente el valor cada vez que se inserta un nuevo registro. 📈
+     *   - **primaryKey**: true 🏷️
+     *   - Define este campo como la clave primaria de la tabla. 🗂️
+*/
 ${modelName}.init(
     {
         id: {
-            /**
-             * Configuración del campo id: 🚀
-             * - **type**: 'DataTypes.BIGINT.UNSIGNED' 🛠️
-             *   - Utilizado para almacenar números enteros grandes. 📊
-             *   - 'UNSIGNED' permite solo valores positivos. ➕
-             *   - Nota: Usa el mismo tipo de dato para llaves foráneas (ej: 'id BIGINT UNSIGNED'). 🔑
-             * - **autoIncrement**: true 🔄
-             *   - Incrementa automáticamente el valor cada vez que se inserta un nuevo registro. 📈
-             * - **primaryKey**: true 🏷️
-             *   - Define este campo como la clave primaria de la tabla. 🗂️
-            */
-          
-            type: DataTypes.BIGINT,
+            type: DataTypes.BIGINT.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,
         },
