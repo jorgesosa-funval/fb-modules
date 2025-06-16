@@ -21,25 +21,8 @@ export const runMigrations = async (migration) => {
     const moduleURL = pathToFileURL(modulePath).href;
     const module = await import(moduleURL);
     const model = module[migration];
-    await model.sync({ force: true });
-
-    // Check if the column 'created_at' exists before altering it
-    const [results] = await model.sequelize.query(
-      `SHOW COLUMNS FROM ${model.getTableName()} LIKE 'created_at'`
-    );
-
-    if (results.length > 0) {
-      // Alter column created_at to have CURRENT_TIMESTAMP as default
-      await model.sequelize.query(
-        `ALTER TABLE ${model.getTableName()} MODIFY created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP`
-      );
-
-      // Alter column updated_at to have CURRENT_TIMESTAMP as default
-      await model.sequelize.query(
-        `ALTER TABLE ${model.getTableName()} MODIFY updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`
-      );
-    }
-
+    await model.sync({ force: true }); 
+    
     console.log(`✅ The table for the ${migration} model was just created!`);
   } catch (error) {
     console.error(

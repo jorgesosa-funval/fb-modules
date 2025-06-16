@@ -11,9 +11,8 @@ export class ${modelName} extends Model {}
 
 /**
      * Configuración del campo id: 🚀
-     *   - **type**: 'DataTypes.BIGINT.UNSIGNED' 🛠️
-     *   - Utilizado para almacenar números enteros grandes. 📊
-     *   - 'UNSIGNED' permite solo valores positivos. ➕
+     *   - **type**: 'DataTypes.BIGINT' 🛠️
+     *   - **BIGINT**: Utilizado para almacenar números enteros grandes. 📊 
      *   - Nota: Usa el mismo tipo de dato para llaves foráneas (ej: 'id BIGINT UNSIGNED'). 🔑
      *   - **autoIncrement**: true 🔄
      *   - Incrementa automáticamente el valor cada vez que se inserta un nuevo registro. 📈
@@ -23,7 +22,7 @@ export class ${modelName} extends Model {}
 ${modelName}.init(
     {
         id: {
-            type: DataTypes.BIGINT.UNSIGNED,
+            type: DataTypes.BIGINT,
             autoIncrement: true,
             primaryKey: true,
         },
