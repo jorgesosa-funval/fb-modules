@@ -103,7 +103,7 @@ const controllerContent = `import {${modelName}}from "./Model.js"
         }
       }
     */ 
-     const ${instanceName} = await ${modelName}findByPk(req.params.id);
+     const ${instanceName} = await ${modelName}.findByPk(req.params.id);
      if (!${instanceName}) {
        throw { status: 404, message: "${modelName} not found" };
      }
