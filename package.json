@@ -1,6 +1,6 @@
 {
   "name": "fb-modules",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A simple way to create modules for your express api",
   "main": "index.js",
   "type": "module",
