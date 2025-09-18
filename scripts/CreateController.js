@@ -3,7 +3,9 @@ import cf from "../utils/fc.js";
 import getNames from "../utils/getNames.js";
 
 const [moduleName, modelName] = getNames();
-const instanceName = moduleName.endsWith("s") ? moduleName.slice(0, -1) : moduleName;
+const instanceName = moduleName.endsWith("s")
+  ? moduleName.slice(0, -1)
+  : moduleName;
 const controllerContent = `import {${modelName}}from "./Model.js"
     
  /**
@@ -57,6 +59,16 @@ const controllerContent = `import {${modelName}}from "./Model.js"
    try {
     //#swagger.tags = ['${modelName}']
     //#swagger.description = 'Crea un nuevo ${instanceName}.'
+    /* 
+      #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Datos para crear un nuevo ${instanceName}.',
+        required: true, 
+        schema: { 
+           'key': 'value'
+        }
+      }
+    */ 
 
      const ${instanceName} = await ${modelName}.create(req.body, {
        validate: true,
@@ -81,7 +93,16 @@ const controllerContent = `import {${modelName}}from "./Model.js"
    try {
     //#swagger.tags = ['${modelName}']
     //#swagger.description = 'Actualiza un ${instanceName} por id.'
-
+    /* 
+      #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Datos para crear un nuevo ${instanceName}.',
+        required: true, 
+        schema: { 
+           'key': 'value'
+        }
+      }
+    */ 
      const ${instanceName} = await ${modelName}findByPk(req.params.id);
      if (!${instanceName}) {
        throw { status: 404, message: "${modelName} not found" };
@@ -223,9 +244,12 @@ const emptyControllerContent = `
 export default { index, show, store, update, destroy };
 `;
 
-const content = fs.existsSync(`src/modules/${modelName}/Model.js`) ? controllerContent : emptyControllerContent;
-
+const content = fs.existsSync(`src/modules/${modelName}/Model.js`)
+  ? controllerContent
+  : emptyControllerContent;
 
 cf(`src/modules/${modelName}`, "Controller.js", content);
 
-console.log(`Controller created successfully at src/modules/${modelName}/Controller.js`);
+console.log(
+  `Controller created successfully at src/modules/${modelName}/Controller.js`
+);
